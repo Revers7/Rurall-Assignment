@@ -1,0 +1,20 @@
+server {
+
+    #listen 16866 ssl;
+    # change this to your server name or IP
+    listen 10000;
+    server_name 0.0.0.0;
+    #ssl_certificate /home/pi/ANTS/app/RouterDirect/star_aubay_it_76096715star_aubay_it.crt;
+    #ssl_certificate_key /home/pi/ANTS/app/RouterDirect/staraubayit2017.no-pass-phrase.key;
+
+
+    location / {
+
+        include         uwsgi_params;
+
+        # change this to the location of the uWSGI socket file (set in uwsgi.ini)
+
+        uwsgi_pass      unix:/home/pi/ANTS/app/AppRouter/app-router.sock;
+
+    }
+}

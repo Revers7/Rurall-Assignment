@@ -1,0 +1,23 @@
+[Unit]
+
+Description=uWSGI instance to connect Console and MobiANTS
+After=systemd-networkd.service systemd-resolved.service wpa_supplicant@wlan0.service
+
+[Service]
+
+User=pi
+
+WorkingDirectory=/home/pi/ANTS/app/AppRouter
+
+Environment="PATH=/home/pi/ANTS/app/AppRouter/env/bin:/usr/bin:/bin:/usr/local/bin:/usr/sbin"
+
+ExecStart=/home/pi/ANTS/app/AppRouter/env/bin/uwsgi --ini /home/pi/ANTS/app/AppRouter/uwsgi.ini
+
+Restart=always
+
+TimeoutStopSec=1
+
+[Install]
+
+WantedBy=multi-user.target
+
