@@ -1,5 +1,2 @@
 Flask
 Flask-SQLAlchemy
-uwsgi
-uwsgitop
-python-dotenv

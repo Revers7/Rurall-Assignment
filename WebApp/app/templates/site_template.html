@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="AR34">
+		<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        <title>{{app_name}}</title>
+        <link rel="icon" type="image/png" href="{{be_variables['static_prefix_path']}}/static/images/icons/favicon.ico" />
+
+        {% block imports %}
+        {% endblock %}
+		<link href="{{be_variables['static_prefix_path']}}/static/css/floating-button.css" rel="stylesheet">
+		<!-- Bootstrap Core CSS -->
+		<link href="{{be_variables['static_prefix_path']}}/static/css/bootstrap.css" rel="stylesheet">
+
+		<link href="{{be_variables['static_prefix_path']}}/static/css/sb-admin.css" rel="stylesheet">
+
+		<link href="{{be_variables['static_prefix_path']}}/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+		<!--===============================================================================================-->
+		<!--         <link rel="stylesheet" type="text/css" href="{{be_variables['static_prefix_path']}}/static/vendor/animate/animate.css"> -->
+		<!--===============================================================================================-->
+		<!--         <link rel="stylesheet" type="text/css" href="{{be_variables['static_prefix_path']}}/static/vendor/select2/select2.min.css"> -->
+		<!--===============================================================================================-->
+		<!--         <link rel="stylesheet" type="text/css" href="{{be_variables['static_prefix_path']}}/static/vendor/perfect-scrollbar/perfect-scrollbar.css"> -->
+		<!--===============================================================================================-->
+		<link rel="stylesheet" type="text/css" href="{{be_variables['static_prefix_path']}}/static/css/util.css">
+		<link rel="stylesheet" type="text/css" href="{{be_variables['static_prefix_path']}}/static/css/main.css">
+		<!--===============================================================================================-->
+		<script src="{{be_variables['static_prefix_path']}}/static/vendor/jquery/jquery-3.3.1.min.js"></script>
+		<!--===============================================================================================-->
+		<!--     <script src="{{be_variables['static_prefix_path']}}/static/vendor/bootstrap/js/popper.min.js"></script>
+		<script src="{{be_variables['static_prefix_path']}}/static/vendor/bootstrap/js/bootstrap.min.js"></script> -->
+		<!--===============================================================================================-->
+		<!--     <script src="{{be_variables['static_prefix_path']}}/static/vendor/select2/select2.min.js"></script> -->
+		<!--===============================================================================================-->
+		<script src="{{be_variables['static_prefix_path']}}/static/js/main.js"></script>
+
+
+	</head>
+    <body>
+        <div id="container-fluid">
+			<!-- navbar on mobile screen -->           
+		   <nav class="navbar navbar-expand fixed-top" role="navigation" id="mobile-navbar">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    </div>  -->
+                    <div class="col">
+                        <div class="row">
+                            <div id="emp_ind" class="col-6 menu-indicator"> </div>
+                            <div id="rep_ind" class="col-6 menu-indicator"> </div>
+                            <div id="ass_ind" class="col-6 menu-indicator"> </div>
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                </div> 
+            </nav>
+            <!-- navbar on large screen -->
+            <nav class="navbar navbar-expand fixed-top" id="pc-navbar" role="navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li id="nav-employee" class="nav-item" onclick="show('employee')">
+                            <a class="nav-link" href="/home">
+                                <i class="fa fa-fw fa-user"></i>
+                                <button class="button-form-select">EMPLOYEE</button>
+                            </a>
+                        </li>
+                        <li id="nav-report" class="nav-item" onclick="show('report')">
+                            <a class="nav-link" href="/report">
+                                <i class="fa fa-fw fa-gears"></i>
+                                <button class="button-form-select">REPORT</button>
+                            </a>
+                        </li>
+						<li id="nav-assign" class="nav-item" onclick="show('assign')">
+                            <a class="nav-link" href="/assign">
+                                <i class="fa fa-fw fa-gears"></i>
+                                <button class="button-form-select">ASSIGN</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="container" id="container-1">
+                <div class="row">
+                    <div class="col">
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                {% if 'Error' in message %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-success" role="alert">
+                                        {{ message }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col buttons-container">
+					{% if be_variables['endpoint'] not in ['/home','/report','/assign'] %}
+					<a href="{{be_variables['static_prefix_path']}}/home">
+						<div class="floating-button fb-big fb-white mytooltip" onclick="onSubmitEmployee();">
+							<i class="fa fa-fw fa-arrow-left"></i>
+							<span class="tooltiptext">Go home</span>
+						</div>
+                    </a>
+                    {% endif %}
+                    <div class="floating-button fb-big fb-white mytooltip" onclick="window.location.reload()">
+                        <img src="{{be_variables['static_prefix_path']}}/static/images/icons/refresh.svg" />
+                        <span class="tooltiptext">Reload page</span>
+                    </div>
+                    {% if be_variables['arg']=='employee' and 'home' in be_variables['endpoint'] %}
+                    <a href="{{be_variables['static_prefix_path']}}/employee/add">
+                        <div class="floating-button fb-big fb-green mytooltip" onclick="show('emp-add')">
+                            <i class="fa fa-fw fa-plus-square"></i>
+                            <span class="tooltiptext">Register Employee</span>
+                        </div>
+                    </a>
+					{% endif %}
+					{% if be_variables['arg']=='report' %}
+                    <a href="{{be_variables['static_prefix_path']}}/report/add">
+                        <div class="floating-button fb-big fb-green mytooltip" onclick="show('rep-add')">
+                            <i class="fa fa-fw fa-plus-square"></i>
+                            <span class="tooltiptext">Load Report</span>
+                        </div>
+                    </a>
+					{% endif %}
+					{% if be_variables['arg']=='assign' %}
+                    <a href="{{be_variables['static_prefix_path']}}/assign/add">
+                        <div class="floating-button fb-big fb-green mytooltip" onclick="show('ass-add')">
+                            <i class="fa fa-fw fa-plus-square"></i>
+                            <span class="tooltiptext">Assign Report</span>
+                        </div>
+                    </a>
+					{% endif %}
+                </div>
+            </div>
+        </div>
+		<br><br>
+        {% block body %}
+        {% endblock %}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-muted text-center" style="margin-top: 40px; margin-bottom: 20px">
+                        <small>{{be_variables['app_name']}} version {{be_variables['client_ver']}} - Database version {{be_variables['db_ver']}}</small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+</body>
+</html>

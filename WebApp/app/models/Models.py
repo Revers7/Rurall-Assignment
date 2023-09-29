@@ -23,25 +23,49 @@ class Employee(db.Model):
         self.gender = gender
         self.title = title
         self.department = department
+     
+    def to_dict(self):
+        return {
+            'email': self.email,
+            'firstname': self.firstname,
+            'lastname': self.lastname,
+            'username': self.username,
+            'gender': self.gender,
+            'title':self.title,
+            'department':self.department
+        }
 
 class Report(db.Model):
 
     __tablename__ = "report"
     
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.String(10), primary_key=True)
     title = db.Column(db.String(30),nullable=False)
     description = db.Column(db.String(100),nullable=False)
-    priority = db.column(db.String(4),nullable=False)
+    priority = db.Column(db.String(4),nullable=False)
     
     # Costruttore della classe Report
-    def __init__(self,title,description,priority):
+    def __init__(self,id,title,description,priority):
+        self.id = id
         self.title = title
         self.description = description
         self.priority = priority
+        
+    def to_dict(self):
+        return {
+            'id':self.id,
+            'title':self.title,
+            'description':self.description,
+            'priority':selfpriority
+        }
 
 # identifica relazione molti a molti tra employee e report
 class Charged(db.Model):
-
-	__tablename__ = 'charged'
-    employee_id = db.Column(db.String(40), db.ForeignKey('employee.email'),primary_key=True)
-	report_id = db.Column(db.Integer(), db.ForeignKey('report.id'),primary_key=True)
+    __tablename__ = "charged"
+    employee_id = db.Column(db.String(40), db.ForeignKey('employee.email'), primary_key=True)
+    report_id = db.Column(db.String(10), db.ForeignKey('report.id'), primary_key=True)
+    
+    # Costruttore della classe charge
+    def __init__(self,report_id,employee_id):
+        self.report_id = report_id
+        self.employee_id = employee_id

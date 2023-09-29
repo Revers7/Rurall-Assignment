@@ -1,0 +1,390 @@
+{% extends 'site_template.html' %}
+{% block body %}
+    <body>
+        <div class="container" id="pageContent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-4 col-lg-6 offset-lg-3 col-xl-6 offset-xl-3" >
+                        <div id=employee style="display: block;">
+							<div class="container-fluid">
+								<div class="row">
+									<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: center; font: 18px Sans-Serif;">Page {{be_variables['pagination'].page}}</label>
+								</div>
+								<div class="wrap-table100" style="text-align: center;">
+									<div class="table100 ver2">
+										<table data-vertable="ver2">
+											<thead>
+												<tr class="row100 head">
+													<th class="column100 column0" data-column="column0">Email</th>
+													<th class="column100 column1" data-column="column1">Firstname</th>
+													<th class="column100 column2" data-column="column2">Lastname</th>
+													<th class="column100 column3" data-column="column3">Username</th>
+													<th class="column100 column4" data-column="column4">Title</th>
+													<th class="column100 column5" data-column="column5">Department</th>
+													<th class="column100 column6" data-column="column6">Gender</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for employee in be_variables['pagination'].items %}
+												<tr class="row100">
+													<td class="column100 column0" data-column="column0">{{employee.email}}</td>
+													<td class="column100 column1" data-column="column1">{{employee.firstname}}</td>
+													<td class="column100 column2" data-column="column2">{{employee.lastname}}</td>
+													<td class="column100 column3" data-column="column3">{{employee.username}}</td>
+													<td class="column100 column4" data-column="column4">{{employee.title}}</td>
+													<td class="column100 column5" data-column="column5">{{employee.department}}</td>
+													<td class="column100 column6" data-column="column6">{{employee.gender}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+										<div class="row">
+											<div class="col-3">
+											</div>
+											<div class="col-2">
+												{% if be_variables['pagination'].has_prev %}
+													<button>
+														<a href="{{ url_for('routes.home', page=be_variables['pagination'].prev_num) }}">
+															<label class="form-label" for="form1" style="padding-top: 8px;">Prev</label>
+														</a>
+													</button>
+												{% endif %}
+											</div>
+											<div class="col-2">
+												<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: right;">{{be_variables['pagination'].page}}</label>
+											</div>
+											<div class="col-2">
+												{% if be_variables['pagination'].has_next %}
+													<button>
+														<a href="{{ url_for('routes.home', page=be_variables['pagination'].next_num) }}">
+															<label class="form-label" for="form1" style="padding-top: 8px;">Next</label>
+														</a>
+													</button>
+												{% endif %}
+											</div>
+											<div class="col-3">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div>
+						<div id=report style="display: none;">
+							<div class="container-fluid">
+								<form class="form-inline connectivity-form" action="/report"  id="rep-add-form" method="post" role="form" >
+									<div class="row">
+										<div class="col-6">
+											<input type="text" name="search-user" id="search-user" class="form-control border border-primary"  style="padding-top: 4px;" value="" placeholder="Type search username" />
+										</div>
+										
+										<div class="col-4">
+											<select name="search-priority" id="search-priority" class="form-select" style=" border-bottom: 2px solid grey">
+												<option value="" class="select-option"></option>
+												<option value="High" class="select-option">High</option>
+												<option value="Low" class="select-option">Low</option>
+											</select>
+										</div>
+										<div class="col-2">
+											<div class="mytooltip" id="button_search_container">
+												<button type="submit" id="btn_search" class="btn btn-primary">
+													<img src="{{be_variables['static_prefix_path']}}/static/images/icons/magnify.svg" />
+												</button>
+												<span class="tooltiptext">Apply or Clear Search</span>
+											</div>
+										</div>
+									</div>
+								</form><br>
+								<div class="row">
+									<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: center; font: 18px Sans-Serif;">Page {{be_variables['pagination'].page}}</label>
+								</div>
+								<div class="wrap-table100" style="text-align: center;">
+									<div class="table100 ver2">
+										<table data-vertable="ver2">
+											<thead>
+												<tr class="row100 head">
+													<th class="column100 column0" data-column="column0">ID</th>
+													<th class="column100 column1" data-column="column1">Title</th>
+													<th class="column100 column2" data-column="column2">Description</th>
+													<th class="column100 column3" data-column="column3">Priority</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for report in be_variables['pagination'].items %}
+												<tr class="row100">
+													<td class="column100 column1" data-column="column1">{{report.id}}</td>
+													<td class="column100 column2" data-column="column2">{{report.title}}</td>
+													<td class="column100 column3" data-column="column3">{{report.description}}</td>
+													<td class="column100 column4" data-column="column4">{{report.priority}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+									<div class="row">
+										<div class="col-3">
+										</div>
+										<div class="col-2">
+											{% if be_variables['pagination'].has_prev %}
+												<button>
+													<a href="{{ url_for('routes.reports', page=be_variables['pagination'].prev_num) }}">
+														<label class="form-label" for="form1" style="padding-top: 8px;">Prev</label>
+													</a>
+												</button>
+											{% endif %}
+										</div>
+										<div class="col-2">
+											<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: right;">{{be_variables['pagination'].page}}</label>
+										</div>
+										<div class="col-2">
+											{% if be_variables['pagination'].has_next %}
+												<button>
+													<a href="{{ url_for('routes.reports', page=be_variables['pagination'].next_num) }}">
+														<label class="form-label" for="form1" style="padding-top: 8px;">Next</label>
+													</a>
+												</button>
+											{% endif %}
+										</div>
+										<div class="col-3">
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div>
+						<div id=assign style="display: none;">
+							<div class="container-fluid">
+								<div class="row">
+									<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: center; font: 18px Sans-Serif;">Page {{be_variables['pagination'].page}}</label>
+								</div>
+								<div class="wrap-table100" style="text-align: center;">
+									<div class="table100 ver2">
+										<table data-vertable="ver2">
+											<thead>
+												<tr class="row100 head">
+													<th class="column100 column0" data-column="column0">Report</th>
+													<th class="column100 column1" data-column="column1">Employee</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% for charge in be_variables['pagination'].items %}
+												<tr class="row100">
+													<td class="column100 column1" data-column="column1">{{charge.report_id}}</td>
+													<td class="column100 column2" data-column="column2">{{charge.employee_id}}</td>
+												</tr>
+												{% endfor %}
+											</tbody>
+										</table>
+									</div>
+									<div class="row">
+										<div class="col-3">
+										</div>
+										<div class="col-2">
+											{% if be_variables['pagination'].has_prev %}
+												<button>
+													<a href="{{ url_for('routes.assign', page=be_variables['pagination'].prev_num) }}">
+														<label class="form-label" for="form1" style="padding-top: 8px;">Prev</label>
+													</a>
+												</button>
+											{% endif %}
+										</div>
+										<div class="col-2">
+											<label class="form-label-title" for="form1" style="padding-top: 8px; text-align: right;">{{be_variables['pagination'].page}}</label>
+										</div>
+										<div class="col-2">
+											{% if be_variables['pagination'].has_next %}
+												<button>
+													<a href="{{ url_for('routes.assign', page=be_variables['pagination'].next_num) }}">
+														<label class="form-label" for="form1" style="padding-top: 8px;">Next</label>
+													</a>
+												</button>
+											{% endif %}
+										</div>
+										<div class="col-3">
+										</div>
+									</div>
+								</div>
+							</div>
+                        </div>
+						<div id=emp-add style="display: none;">
+                            <div class="container">											
+								<form class="form-inline connectivity-form" action="/employee/add"  id="emp-add-form" method="post" role="form" >
+									<br><div class="row" style="text-align: center;">
+										<div class="col-12">
+											<label class="form-label-title" for="form1" style="font: 24px Sans-Serif;">Register Employee</label>
+										</div>
+									</div><br>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Firstname</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="emp-firstname" id="emp-firstname" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Lastname</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="emp-lastname" id="emp-last" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Username</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="emp-username" id="emp-username" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Email</label>
+										</div>
+										<div class="col-8">
+											<input type="email" name="emp-email" id="emp-email" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Title</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="emp-title" id="emp-title" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Department</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="emp-department" id="emp-department" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 5px; padding-left: 50px;">Gender</label>
+										</div>
+										<div class="col-sm-8">
+											<select name="emp-gender" id="emp-gender" class="form-select" style=" border-bottom: 2px solid grey">
+												<option value="Male" class="select-option">Male</option>
+												<option value="Female" class="select-option">Female</option>
+												<option value="Other" class="select-option">Other</option>
+											</select>
+										</div>
+									</div>
+									<div class="row" style="padding-top: 15px; ">
+										<div class="col-4">
+										</div>
+										<div class="col-8">
+											<input type="submit" name="register_button" id="register_button" tabindex="4" class="form-control btn btn-login" value="Register" onclick="onSubmitEmployee();">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div id=rep-add style="display: none;">
+                            <div class="container">											
+								<form class="form-inline connectivity-form" action="/report/add"  id="rep-add-form" method="post" role="form" >
+									<br><div class="row" style="text-align: center;">
+										<div class="col-12">
+											<label class="form-label-title" for="form1" style="font: 24px Sans-Serif;">Load Report</label>
+										</div>
+									</div><br>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">ID</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="rep-id" id="rep-id" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Title</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="rep-title" id="rep-title" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Description</label>
+										</div>
+										<div class="col-8">
+											<input type="text" name="rep-description" id="rep-description" class="form-control border" value = "" required></input>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 5px; padding-left: 50px;">Priority</label>
+										</div>
+										<div class="col-sm-8">
+											<select name="rep-priority" id="rep-priority" class="form-select" style=" border-bottom: 2px solid grey">
+												<option value="High" class="select-option">High</option>
+												<option value="Low" class="select-option">Low</option>
+											</select>
+										</div>
+									</div>
+									<div class="row" style="padding-top: 15px; ">
+										<div class="col-4">
+										</div>
+										<div class="col-8">
+											<input type="submit" name="load_rep_button" id="load_rep_button" tabindex="4" class="form-control btn btn-login" value="Load" onclick="onSubmitReport();">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>					
+						<div id=ass-add style="display: none;">
+                            <div class="container">											
+								<form class="form-inline connectivity-form" action="/assign/add"  id="rep-add-form" method="post" role="form" >
+									<br><div class="row" style="text-align: center;">
+										<div class="col-12">
+											<label class="form-label-title" for="form1" style="font: 24px Sans-Serif;">Assign Report</label>
+										</div>
+									</div><br>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Select Employee</label>
+										</div>
+										<div class="col-sm-8">
+											<select name="ass-emp" id="ass-emp" class="form-select" style=" border-bottom: 2px solid grey" required>
+												<option value="" class="select-option"></option>
+												{% for employee in be_variables['employees']%}
+													<option value="{{employee.email}}" class="select-option">{{employee.email}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-4 label-container">
+											<label class="form-label" for="form1" style="padding-top: 8px; padding-left: 50px;">Select Report</label>
+										</div>
+										<div class="col-sm-8">
+											<select name="ass-rep" id="ass-rep" class="form-select" style=" border-bottom: 2px solid grey" required>
+												<option value="" class="select-option"></option>
+												{% for report in be_variables['reports']%}
+													<option value="{{report.id}}" class="select-option">{{report.id}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="row" style="padding-top: 15px; ">
+										<div class="col-4">
+										</div>
+										<div class="col-8">
+											<input type="submit" name="assign_rep_button" id="assign_rep_button" tabindex="4" class="form-control btn btn-login" value="Assign" onclick="onSubmitAssign();">
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>					
+					</div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+	</body>
+{% endblock %}
